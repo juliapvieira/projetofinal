@@ -928,3 +928,12 @@ img.foto-integrante {
     display: block;
     margin-bottom: 5px;
 }
+
+.LOGO {
+      width: 200px;
+    height: 200px;
+    border-radius: 150px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}

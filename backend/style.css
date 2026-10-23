@@ -75,6 +75,7 @@ textarea {
 img {
     max-width: 100%;
     display: block;
+    border-radius: 200;
 }
 
 h1,
@@ -175,6 +176,53 @@ h4 {
 
 .hero-texto {
     width: 100%;
+}
+/* =========================
+   BOTÕES — SEMPRE AZUIS
+   ========================= */
+
+.botao,
+.botao-menu,
+.entrar,
+.botao-preenchido,
+.botao-contorno {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    background-color: #1794c5;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: none;
+}
+
+/* Mantém os botões azuis ao passar o mouse */
+.botao:hover,
+.botao-menu:hover,
+.entrar:hover,
+.botao-preenchido:hover,
+.botao-contorno:hover {
+    background-color: #1794c5;
+    color: #ffffff;
+    border: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Botão claro também fica azul */
+.botao-claro {
+    background-color: #1794c5;
+    color: #ffffff;
+    border: none;
+}
+
+.botao-claro:hover {
+    background-color: #1794c5;
+    color: #ffffff;
 }
 
 .hero h1,
@@ -807,4 +855,76 @@ tr:hover td {
     .login-card {
         padding: 20px;
     }
+}
+/* ==========================================
+   CORREÇÃO FINAL — TODOS OS BOTÕES AZUIS
+   ========================================== */
+
+button,
+a.botao,
+a.botao-menu,
+a.botao-preenchido,
+a.botao-contorno,
+a.botao-claro,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.botao,
+.botao-menu,
+.botao-preenchido,
+.botao-contorno,
+.botao-claro,
+.entrar {
+    background: #1794c5 !important;
+    background-color: #1794c5 !important;
+    color: #ffffff !important;
+    border-color: #1794c5 !important;
+    box-shadow: none;
+}
+
+/* Continuam azuis ao passar o mouse */
+button:hover,
+a.botao:hover,
+a.botao-menu:hover,
+a.botao-preenchido:hover,
+a.botao-contorno:hover,
+a.botao-claro:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.botao:hover,
+.botao-menu:hover,
+.botao-preenchido:hover,
+.botao-contorno:hover,
+.botao-claro:hover,
+.entrar:hover {
+    background: #1794c5 !important;
+    background-color: #1794c5 !important;
+    color: #ffffff !important;
+    border-color: #1794c5 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Mantém os botões azuis quando estão desabilitados */
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled {
+    background: #1794c5 !important;
+    background-color: #1794c5 !important;
+    color: #ffffff !important;
+    opacity: 0.7;
+}
+/* =====================================
+   FOTOS REDONDAS DOS INTEGRANTES
+   ===================================== */
+
+img.foto-integrante {
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    object-position: center;
+    display: block;
+    margin-bottom: 5px;
 }

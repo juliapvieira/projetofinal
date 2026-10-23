@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SYNTAX.lab — Login</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="pagina-login">
+
+    <main class="login-container">
+
+        <div class="login-cabecalho">
+            <h1>Syntax Lab</h1>
+        </div>
+
+        <section class="login-card">
+
+            <h2>Acesse sua conta</h2>
+
+            <form id="formLogin" class="formulario" action="/api/usuarios/login" method="POST">
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="seuemail@exemplo.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha</label>
+
+                    <input
+                        type="password"
+                        name="senha"
+                        id="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <div class="form-acoes">
+
+                    <button type="submit" class="entrar">
+                        Entrar
+                    </button>
+
+                    <a
+                        class="link-senha"
+                        href="#recuperar-senha"
+                        id="linkSenha"
+                    >
+                        Esqueci minha senha
+                    </a>
+
+                    <p class="login-cadastro">
+                        Não tem uma conta?
+
+                        <button
+                            type="button"
+                            class="link-cadastro"
+                            id="abrirCadastro"
+                        >
+                            Cadastrar
+                        </button>
+                    </p>
+
+                </div>
+
+                <p
+                    class="login-feedback"
+                    id="loginFeedback"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <dialog
+        class="modal-cadastro"
+        id="modalCadastro"
+        aria-labelledby="titulo-cadastro"
+    ></dialog>
+
+    <script>
+        // =====================================================
+        // ELEMENTOS DA TELA
+        // =====================================================
+
+        const formLogin = document.getElementById('formLogin');
+        const loginFeedback = document.getElementById('loginFeedback');
+        const modalCadastro = document.getElementById('modalCadastro');
+        const botaoAbrirCadastro = document.getElementById('abrirCadastro');
+
+        let cadastroCarregado = false;
+
+
+        // =====================================================
+        // FUNÇÃO PARA LER RESPOSTAS DO SERVIDOR
+        // =====================================================
+
+        async function lerResposta(resposta) {
+            const textoResposta = await resposta.text();
+            let dados = {};
+
+            if (textoResposta.trim()) {
+                try {
+                    dados = JSON.parse(textoResposta);
+                } catch {
+                    throw new Error(
+                        'O servidor retornou uma resposta inválida. Verifique o backend.'
+                    );
+                }
+            }
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.erro ||
+                    dados.mensagem ||
+                    `Erro na solicitação. Código HTTP: ${resposta.status}`
+                );
+            }
+
+            return dados;
+        }
+
+
+        // =====================================================
+        // LOGIN
+        // =====================================================
+
+        formLogin.addEventListener('submit', async (evento) => {
+            evento.preventDefault();
+
+            loginFeedback.textContent = 'Verificando seus dados...';
+
+            const botaoEntrar = formLogin.querySelector(
+                '[type="submit"]'
+            );
+
+            botaoEntrar.disabled = true;
+
+            try {
+                const email = document
+                    .getElementById('email')
+                    .value
+                    .trim();
+
+                const senha = document
+                    .getElementById('senha')
+                    .value;
+
+                const resposta = await fetch('/api/usuarios/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        senha: senha
+                    })
+                });
+
+                const resultado = await lerResposta(resposta);
+
+                if (!resultado.usuario) {
+                    throw new Error(
+                        'O servidor não retornou os dados do usuário.'
+                    );
+                }
+
+                loginFeedback.textContent = 'Login realizado com sucesso!';
+                window.location.href = 'inicio.html';
+
+            } catch (erro) {
+                loginFeedback.textContent =
+                    erro.message ||
+                    'Não foi possível conectar ao servidor.';
+            } finally {
+                botaoEntrar.disabled = false;
+            }
+        });
+
+
+        // =====================================================
+        // RECUPERAÇÃO DE SENHA
+        // =====================================================
+
+        document
+            .getElementById('linkSenha')
+            .addEventListener('click', (evento) => {
+                evento.preventDefault();
+
+                loginFeedback.textContent =
+                    'A recuperação de senha ainda não está disponível.';
+            });
+
+
+        // =====================================================
+        // ABRIR CADASTRO
+        // =====================================================
+
+        botaoAbrirCadastro.addEventListener('click', async () => {
+            loginFeedback.textContent = '';
+
+            if (!cadastroCarregado) {
+                try {
+                    const resposta = await fetch('cadastrarlogin.html');
+
+                    if (!resposta.ok) {
+                        throw new Error(
+                            'Não foi possível abrir o cadastro.'
+                        );
+                    }
+
+                    const htmlCadastro = await resposta.text();
+
+                    const documento = new DOMParser().parseFromString(
+                        htmlCadastro,
+                        'text/html'
+                    );
+
+                    const template = documento.getElementById(
+                        'cadastro-modal-template'
+                    );
+
+                    if (!template) {
+                        throw new Error(
+                            'O formulário de cadastro não foi encontrado. Verifique o arquivo cadastrarlogin.html.'
+                        );
+                    }
+
+                    modalCadastro.replaceChildren(
+                        template.content.cloneNode(true)
+                    );
+
+                    const formCadastro = modalCadastro.querySelector(
+                        '#formCadastro'
+                    );
+
+                    const cadastroFeedback = modalCadastro.querySelector(
+                        '#cadastroFeedback'
+                    );
+
+                    if (!formCadastro || !cadastroFeedback) {
+                        throw new Error(
+                            'O formulário de cadastro está incompleto.'
+                        );
+                    }
+
+
+                    // =============================================
+                    // FECHAR MODAL
+                    // =============================================
+
+                    const botaoFechar = modalCadastro.querySelector(
+                        '[data-fechar-modal]'
+                    );
+
+                    if (botaoFechar) {
+                        botaoFechar.addEventListener('click', () => {
+                            modalCadastro.close();
+                        });
+                    }
+
+
+                    // =============================================
+                    // ENVIAR CADASTRO
+                    // =============================================
+
+                    formCadastro.addEventListener(
+                        'submit',
+                        async (eventoCadastro) => {
+                            eventoCadastro.preventDefault();
+
+                            cadastroFeedback.textContent = '';
+
+                            const botaoEnviar = formCadastro.querySelector(
+                                '[type="submit"]'
+                            );
+
+                            if (botaoEnviar) {
+                                botaoEnviar.disabled = true;
+                            }
+
+                            try {
+                                const dados = Object.fromEntries(
+                                    new FormData(formCadastro)
+                                );
+
+                                const respostaCadastro = await fetch(
+                                    '/api/usuarios/cadastro',
+                                    {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(dados)
+                                    }
+                                );
+
+                                const resultadoCadastro = await lerResposta(
+                                    respostaCadastro
+                                );
+
+                                document.getElementById('email').value =
+                                    dados.email || '';
+
+                                document.getElementById('senha').value = '';
+
+                                modalCadastro.close();
+
+                                loginFeedback.textContent =
+                                    resultadoCadastro.mensagem ||
+                                    'Cadastro concluído. Agora entre com sua senha.';
+
+                                document.getElementById('senha').focus();
+
+                            } catch (erroCadastro) {
+                                cadastroFeedback.textContent =
+                                    erroCadastro.message ||
+                                    'Não foi possível realizar o cadastro.';
+                            } finally {
+                                if (botaoEnviar) {
+                                    botaoEnviar.disabled = false;
+                                }
+                            }
+                        }
+                    );
+
+                    cadastroCarregado = true;
+
+                } catch (erro) {
+                    loginFeedback.textContent =
+                        erro.message ||
+                        'Não foi possível carregar o formulário de cadastro.';
+
+                    return;
+                }
+            }
+
+            modalCadastro.showModal();
+
+            const campoNome = modalCadastro.querySelector('#nomeCadastro');
+
+            if (campoNome) {
+                campoNome.focus();
+            }
+        });
+
+
+        // =====================================================
+        // FECHAR MODAL AO CLICAR FORA DO CONTEÚDO
+        // =====================================================
+
+        modalCadastro.addEventListener('click', (evento) => {
+            if (evento.target === modalCadastro) {
+                modalCadastro.close();
+            }
+        });
+
+
+        // =====================================================
+        // DEVOLVER FOCO AO BOTÃO DE CADASTRO
+        // =====================================================
+
+        modalCadastro.addEventListener('close', () => {
+            botaoAbrirCadastro.focus();
+        });
+    </script>
+
+</body>
+
+</html>

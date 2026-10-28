@@ -39,7 +39,7 @@ A página também possui atalhos para acessar os relatórios e outras áreas do 
 ### tela inicial
 
 
-![Tela inicial do SYNTAX.lab](prints/index.jpg)
+![Tela inicial do SYNTAX.lab](prints/index.jpg.png)
 
 
 # Estrutura do Front-end
@@ -63,7 +63,7 @@ A página foi planejada para permitir o preenchimento dos dados necessários ao 
 ### página INDEX
 
 
-![Cadastro inicial](prints/index.jpg)
+![Cadastro inicial](prints/cadastro)
 
 ## 2. `inicio.html` — Página inicial do sistema
 
@@ -72,7 +72,7 @@ Apresenta o painel principal do SYNTAX.lab.
 A tela contém indicadores das ordens de serviço e atalhos para acessar diferentes áreas do sistema, permitindo uma visualização resumida das informações.
 
 
-![Painel inicial](prints/inicio.png)
+![Painel inicial](prints/inicio.jpg.png)
 
 ## 3. `cadascliente.html` — Cadastro de clientes
 
@@ -81,7 +81,7 @@ Página destinada ao preenchimento das informações dos clientes.
 Seu objetivo é permitir o registro dos dados necessários para identificar e manter organizados os clientes atendidos pela empresa.
 
 
-![Cadastro de clientes](prints/cadastroclien.jpg)
+![Cadastro de clientes](prints/cadascliente.png)
 
 ## 4. `clientes.html` — Gerenciamento de clientes
 
@@ -90,7 +90,7 @@ Página que apresenta os clientes já cadastrados no sistema.
 Permite consultar os registros existentes e acessar as opções disponíveis para o gerenciamento dos dados dos clientes.
 
 
-![Página de clientes](prints/clientes.jpg)
+![Página de clientes](prints/clientes.png)
 
 ## 5. `cadastrar.html` — Cadastro de técnicos
 
@@ -99,7 +99,7 @@ Página destinada ao cadastro de técnicos que fazem parte da equipe de manuten�
 Os dados cadastrados ajudam a identificar os profissionais responsáveis pela realização dos serviços.
 
 
-![Cadastro de técnicos](prints/cadastrotec.jpg)
+![Cadastro de técnicos](prints/cadastrotec.png)
 
 ## 6. `tecnicos.html` — Gerenciamento de técnicos
 
@@ -117,7 +117,7 @@ Página destinada à edição dos dados dos clientes já cadastrados.
 Também permite acessar informações relacionadas aos problemas relatados nos equipamentos e atualizar os dados dos registros, conforme as funcionalidades implementadas no sistema.
 
 
-![Edição de cadastros](prints/cadastrotec.jpg) 
+![Edição de cadastros](prints/cadastrotec.png) 
 
 ## 8. `ordem.html` — Ordens de serviço
 
@@ -145,7 +145,7 @@ As principais funções de uma ordem de serviço são:
 A página reúne os registros das ordens de serviço e permite consultar informações relacionadas aos clientes, equipamentos, técnicos, prazos e status dos serviços.
 
 
-![Ordens de serviço](prints/ordem.jpg)
+![Ordens de serviço](prints/ordem.jpg.png)
 
 
 ## 9. `detalhes.html` — Detalhes das ordens de serviço
@@ -155,7 +155,7 @@ Página destinada à apresentação dos detalhes dos registros relacionados às 
 Seu objetivo é facilitar a consulta das informações dos clientes e dos serviços registrados, reunindo dados que ajudam a compreender cada atendimento.
 
 
-![Detalhes das ordens de serviço](prints/detalhesOS.jpg)
+![Detalhes das ordens de serviço](prints/detalhes.jpg.png)
 
 ## 10. `relatorios.html` — Relatórios do sistema
 
@@ -164,7 +164,7 @@ Página que apresenta um resumo das informações disponíveis no sistema.
 Os relatórios ajudam a visualizar os dados relacionados às ordens de serviço, aos técnicos e aos clientes, facilitando a consulta e a organização das informações.
 
 
-![Relatórios do sistema](prints/relatorios.jpg)
+![Relatórios do sistema](prints/relatorios.png)
 
 ## 11. `sobre.html` — Sobre nós
 
@@ -173,7 +173,7 @@ Página destinada à apresentação dos integrantes do grupo e de suas respectiv
 Seu objetivo é identificar os participantes e apresentar a contribuição de cada integrante para a construção do SYNTAX.lab.
 
 
-![Página sobre nós](prints/sobre.jpg)
+![Página sobre nós](prints/sobre.png)
 
 
 # Banco de dados

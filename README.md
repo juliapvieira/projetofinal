@@ -59,7 +59,7 @@ A página foi planejada para permitir o preenchimento dos dados necessários ao 
 
 ### página INDEX
 
-![Cadastro inicial](prints/cadastro.jpg.png)
+![Cadastro inicial](prints/cadastro.png)
 
 ## 2. `inicio.html` — Página inicial do sistema
 

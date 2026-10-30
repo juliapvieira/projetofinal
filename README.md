@@ -57,7 +57,7 @@ O formulário inclui os seguintes campos:
 
 A página foi planejada para permitir o preenchimento dos dados necessários ao cadastro e incluir uma restrição de idade mínima de 18 anos.
 
-### página INDEX
+### página de cadastro
 
 ![Cadastro inicial](prints/cadastro.png)
 
